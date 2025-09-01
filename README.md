@@ -44,9 +44,10 @@ pip install -r requirements.txt
 ```
 
 2) Configure database
+   
 Update db_config.py with your MySQL host, user, password, and database.
 
-3)Start the app
+3) Start the app
 ```bash
 python app.py
 ```
