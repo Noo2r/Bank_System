@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Report Table</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" type="image/png" href="/static/image/IconBank.png">
+</head>
+<body>
+
+  <nav>
+    <div class="logo">
+        <img src="/static/image/logoBank.png" alt="AIB Bank Logo" height="50" width="200">
+    </div>
+    <div class="nav-buttons">
+      <button onclick="location.href='/logout'">Logout</button>
+    </div>
+  </nav>
+
+  <h1>Database</h1>
+
+  <div class="main-content">
+
+    <div class="table-containerf">
+      <form method="get" action="/admin-reports">
+        <div class="form-group">
+          <label for="report">Choose a Table:</label>
+      <select name="report" id="report" required onchange="this.form.submit()">
+        {% for report in report_names %}
+          <option value="{{ report }}" {% if report == selected_report %}selected{% endif %}>
+            {{ report.capitalize() }}
+          </option>
+        {% endfor %}
+      </select>
+        </div>
+    </form>
+
+    <br>
+
+    <h2 style="color:#806900; text-align: center;">{{ selected_report.capitalize() }} Table</h2>
+
+      <table border="1" style="width:100%; text-align:center;">
+        <thead>
+          <tr>
+            {% for column in table_headers %}
+              <th>{{ column }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in table_rows %}
+            <tr>
+              {% for cell in row %}
+                <td>{{ cell }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+<div class="form-container">
+
+  {% if selected_report == 'reports' %}
+    <details>
+      <summary>Insert</summary>
+      <div class="form-title">Insert Report</div>
+      <hr color="#9d8000">
+      <form action="/report-insert" method="post">
+        <div class="form-group">
+          <label for="username">Name:</label>
+          <input type="text" id="username" name="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Description:</label>
+          <input type="text" id="password" name="password">
+        </div>
+        <div class="form-group">
+          <label for="role">sql_query:</label>
+          <input type="text" id="role" name="role">
+        </div>
+        <div class="form-group">
+          <label for="created_by">Created By:</label>
+          <input type="text" id="created_by" name="created_by">
+        </div>
+        <input type="submit" class="form-submit" value="Insert">
+      </form>
+    </details>
+
+    <details>
+      <summary>Update</summary>
+      <div class="form-title">Update Report</div>
+      <hr color="#9d8000">
+      <form action="/report-update" method="post">
+        <div class="form-group">
+          <label for="id">ID:</label>
+          <input type="text" id="id" name="id">
+        </div>
+        <div class="form-group">
+          <label for="username_up">Name:</label>
+          <input type="text" id="username_up" name="username_up">
+        </div>
+        <div class="form-group">
+          <label for="password_up">Description:</label>
+          <input type="text" id="password_up" name="password_up">
+        </div>
+        <div class="form-group">
+          <label for="role_up">sql_query:</label>
+          <input type="text" id="role_up" name="role_up">
+        </div>
+        <div class="form-group">
+          <label for="created_by_up">Created By:</label>
+          <input type="text" id="created_by_up" name="created_by_up">
+        </div>
+        <input type="submit" class="form-submit" value="Update">
+      </form>
+    </details>
+
+    <details>
+      <summary>Delete</summary>
+      <div class="form-title">Delete Report</div>
+      <hr color="#9d8000">
+      <form action="/report-delete" method="post">
+        <div class="form-group">
+          <label for="id">ID:</label>
+          <input type="text" id="id" name="id">
+        </div>
+        <input type="submit" class="form-submit" value="Delete">
+      </form>
+    </details>
+
+  {% elif selected_report == 'users' %}
+    <details>
+      <summary>Insert</summary>
+      <div class="form-title">Insert User</div>
+      <hr color="#9d8000">
+      <form action="/insert" method="post">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="text" id="password" name="password">
+        </div>
+        <div class="form-group">
+  <label>Role:</label><br>
+  <input type="radio" id="admin" name="role" value="admin" required>
+  <label for="admin">Admin</label><br>
+  
+  <input type="radio" id="viewer" name="role" value="viewer">
+  <label for="viewer">Viewer</label>
+</div>
+        <input type="submit" class="form-submit" value="Insert">
+      </form>
+    </details>
+
+    <details>
+      <summary>Update</summary>
+      <div class="form-title">Update User</div>
+      <hr color="#9d8000">
+      <form action="/update" method="post">
+        <div class="form-group">
+          <label for="id">ID:</label>
+          <input type="text" id="id" name="id">
+        </div>
+        <div class="form-group">
+          <label for="username_up">Username:</label>
+          <input type="text" id="username_up" name="username_up">
+        </div>
+        <div class="form-group">
+          <label for="password_up">Password:</label>
+          <input type="text" id="password_up" name="password_up">
+        </div>
+        <div class="form-group">
+  <label>Role:</label><br>
+  <input type="radio" id="admin" name="role_up" value="admin" required>
+  <label for="role_up">Admin</label><br>
+  
+  <input type="radio" id="role_up" name="role_up" value="viewer">
+  <label for="role_up">Viewer</label>
+</div>
+        <input type="submit" class="form-submit" value="Update">
+      </form>
+    </details>
+
+    <details>
+      <summary>Delete</summary>
+      <div class="form-title">Delete User</div>
+      <hr color="#9d8000">
+      <form action="/delete" method="post">
+        <div class="form-group">
+          <label for="id">ID:</label>
+          <input type="text" id="id" name="id">
+        </div>
+        <input type="submit" class="form-submit" value="Delete">
+      </form>
+    </details>
+
+    {% elif selected_report == 'accounts' %}
+    <details>
+      <summary>Insert</summary>
+      <div class="form-title">Insert Account</div>
+      <hr color="#9d8000">
+      <form action="/account-insert" method="post">
+        <div class="form-group">
+          <label for="customer_id">Customer ID:</label>
+          <input type="text" id="customer_id" name="customer_id">
+        </div>
+        <div class="form-group">
+          <label for="account_number">Account Number:</label>
+          <input type="text" id="account_number" name="account_number">
+        </div>
+        <div class="form-group">
+  <label>Account Type:</label><br>
+  <input type="radio" id="savings" name="account_type" value="Savings" required>
+  <label for="savings">Savings</label><br>
+  
+  <input type="radio" id="checking" name="account_type" value="Checking">
+  <label for="checking">Checking</label>
+</div>
+        <div class="form-group">
+          <label for="balance">Balance:</label>
+          <input type="text" id="balance" name="balance">
+        </div>
+        <input type="submit" class="form-submit" value="Insert">
+      </form>
+    </details>
+
+    <details>
+      <summary>Update</summary>
+      <div class="form-title">Update Account</div>
+      <hr color="#9d8000">
+      <form action="/account-update" method="post">
+        <div class="form-group">
+          <label for="account_id">Account ID:</label>
+          <input type="text" id="account_id" name="account_id">
+        </div>
+        <div class="form-group">
+          <label for="customer_id">Customer ID:</label>
+          <input type="text" id="customer_id" name="customer_id">
+        </div>
+        <div class="form-group">
+          <label for="account_number">Account Number:</label>
+          <input type="text" id="account_number" name="account_number">
+        </div>
+        <div class="form-group">
+  <label>Account Type:</label><br>
+  <input type="radio" id="savings" name="account_type" value="Savings" required>
+  <label for="savings">Savings</label><br>
+  
+  <input type="radio" id="checking" name="account_type" value="Checking">
+  <label for="checking">Checking</label>
+</div>
+        <div class="form-group">
+          <label for="balance">Balance:</label>
+          <input type="text" id="balance" name="balance">
+        </div>
+        <input type="submit" class="form-submit" value="Update">
+      </form>
+    </details>
+
+    <details>
+      <summary>Delete</summary>
+      <div class="form-title">Delete Account</div>
+      <hr color="#9d8000">
+      <form action="/account-delete" method="post">
+        <div class="form-group">
+          <label for="account_id">Account ID:</label>
+          <input type="text" id="account_id" name="account_id">
+        </div>
+        <input type="submit" class="form-submit" value="Delete">
+      </form>
+    </details>
+
+  {% elif selected_report == 'customers' %}
+    <details>
+      <summary>Insert</summary>
+      <div class="form-title">Insert Customer</div>
+      <hr color="#9d8000">
+      <form action="/customer-insert" method="post">
+        <div class="form-group">
+          <label for="full_name">Full Name:</label>
+          <input type="text" id="full_name" name="full_name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email">
+        </div>
+        <div class="form-group">
+          <label for="phone_number">Phone Number:</label>
+          <input type="text" id="phone_number" name="phone_number">
+        </div>
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address">
+        </div>
+        <input type="submit" class="form-submit" value="Insert">
+      </form>
+    </details>
+
+    <details>
+      <summary>Update</summary>
+      <div class="form-title">Update Customer</div>
+      <hr color="#9d8000">
+      <form action="/customer-update" method="post">
+        <div class="form-group">
+          <label for="customer_id">Customer ID:</label>
+          <input type="text" id="customer_id" name="customer_id">
+        </div>
+        <div class="form-group">
+          <label for="full_name">Full Name:</label>
+          <input type="text" id="full_name" name="full_name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email">
+        </div>
+        <div class="form-group">
+          <label for="phone_number">Phone Number:</label>
+          <input type="text" id="phone_number" name="phone_number">
+        </div>
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address">
+        </div>
+        <input type="submit" class="form-submit" value="Insert">
+      </form>
+    </details>
+    <details>
+      <summary>Delete</summary>
+      <div class="form-title">Delete Customer</div>
+      <hr color="#9d8000">
+      <form action="/customer-delete" method="post">
+        <div class="form-group">
+          <label for="customer_id">Customer ID:</label>
+          <input type="text" id="customer_id" name="customer_id">
+        </div>
+        <input type="submit" class="form-submit" value="Delete">
+      </form>
+    </details>
+
+  {% elif selected_report == 'transactions' %}
+    <details>
+      <summary>Insert</summary>
+      <div class="form-title">Insert Transaction</div>
+      <hr color="#9d8000">
+      <form action="/transaction-insert" method="post">
+        <div class="form-group">
+          <label for="account_id">Account ID:</label>
+          <input type="text" id="account_id" name="account_id">
+        </div>
+        <div class="form-group">
+  <label>Transaction Type:</label><br>
+  <input type="radio" id="debit" name="transaction_type" value="debit" required>
+  <label for="debit">Debit</label><br>
+  
+  <input type="radio" id="credit" name="transaction_type" value="credit">
+  <label for="credit">Credit</label>
+</div>
+        <div class="form-group">
+          <label for="amount">Amount:</label>
+          <input type="text" id="amount" name="amount">
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <input type="text" id="description" name="description">
+        </div>
+        <input type="submit" class="form-submit" value="Insert">
+      </form>
+    </details>
+
+    <details>
+      <summary>Update</summary>
+      <div class="form-title">Update Transaction</div>
+      <hr color="#9d8000">
+      <form action="/transaction-update" method="post">
+        <div class="form-group">
+          <label for="transaction_id">Transaction ID:</label>
+          <input type="text" id="transaction_id" name="transaction_id">
+        </div>
+        <div class="form-group">
+          <label for="account_id">Account ID:</label>
+          <input type="text" id="account_id" name="account_id">
+        </div>
+        <div class="form-group">
+  <label>Transaction Type:</label><br>
+  <input type="radio" id="debit" name="transaction_type" value="debit" required>
+  <label for="debit">Debit</label><br>
+  
+  <input type="radio" id="credit" name="transaction_type" value="credit">
+  <label for="credit">Credit</label>
+</div>
+        <div class="form-group">
+          <label for="amount">Amount:</label>
+          <input type="text" id="amount" name="amount">
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <input type="text" id="description" name="description">
+        </div>
+        <input type="submit" class="form-submit" value="Update">
+      </form>
+    </details>
+    <details>
+      <summary>Delete</summary>
+      <div class="form-title">Delete Transaction</div>
+      <hr color="#9d8000">
+      <form action="/transaction-delete" method="post">
+        <div class="form-group">
+          <label for="transaction_id">Transaction ID:</label>
+          <input type="text" id="transaction_id" name="transaction_id">
+        </div>
+        <input type="submit" class="form-submit" value="Delete">
+      </form>
+    </details>
+  {% endif %}
+</div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+.logo-inside {
+            height: 150px;         
+            width: auto;          
+            display: block;      
+            margin: 0 auto 10px; 
+        }
+
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        text-align: center;
+      }
+
+      input {
+        width: 90%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        background-color:   #0ba04e;
+        color: white;
+        border: none;
+        border-radius: 5px; 
+        cursor: pointer;
+      }
+
+      .create-btn {
+        background-color: #007BFF;
+      }
+
+      button:hover {
+        opacity: 0.9;
+      }
+      .alert-error{
+        color: red;
+      }

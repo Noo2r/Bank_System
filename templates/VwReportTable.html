@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Download Page</title>
+  <link rel="icon" href="/static/image/IconBank.png" type="image/png">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: #ffffff;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #000000;
+      padding: 10px 20px;
+      color: white;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-buttons button {
+      padding: 8px 16px;
+      background-color: rgb(0, 0, 0);
+      color: #806900;
+      border: 2px solid #806900;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #e6e6e6;
+    }
+
+    main {
+      flex: 1;
+      padding: 40px;
+      text-align: center;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 90%;
+      margin: 40px auto;
+      background-color: #f9f9f9;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #000000;
+      color: white;
+    }
+
+    .download-bar {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .download-button {
+      background-color: #d4af37;
+      color: black;
+      font-weight: bold;
+      padding: 12px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+    }
+
+    .download-button:hover {
+      background-color: #b7950b;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">
+      <img src="/static/image/logoBank.png" alt="AIB Bank Logo" height="50" width="200">
+    </div>
+    <div class="nav-buttons">
+      <form action="/logout" method="get" style="margin: 0;">
+        <button type="submit">Logout</button>
+      </form>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Welcome to the Report System</h1>
+
+   
+    <form method="get" action="/viewer-reports">
+      <label for="report">Choose a report:</label>
+      <select name="report" id="report" required onchange="this.form.submit()">
+        {% for report in report_names %}
+          <option value="{{ report }}" {% if report == selected_report %}selected{% endif %}>
+            {{ report.capitalize() }}
+          </option>
+        {% endfor %}
+      </select>
+    </form>
+
+    
+    <table>
+      <thead>
+        <tr>
+          {% for column in table_headers %}
+            <th>{{ column }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in table_rows %}
+          <tr>
+            {% for cell in row %}
+              <td>{{ cell }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </main>
+
+  <div class="download-bar">
+    <form action="/download" method="get" style="display:inline-block;">
+      <input type="hidden" name="report" value="{{ selected_report }}">
+      <input type="hidden" name="format" value="csv">
+      <button type="submit" class="download-button">Download CSV</button>
+    </form>
+
+    <form action="/download" method="get" style="display:inline-block;">
+      <input type="hidden" name="report" value="{{ selected_report }}">
+      <input type="hidden" name="format" value="pdf">
+      <button type="submit" class="download-button">Download PDF</button>
+    </form>
+
+    <form action="/download" method="get" style="display:inline-block;">
+      <input type="hidden" name="report" value="{{ selected_report }}">
+      <input type="hidden" name="format" value="txt">
+      <button type="submit" class="download-button">Download TXT</button>
+    </form>
+  </div>
+
+</body>
+</html>
