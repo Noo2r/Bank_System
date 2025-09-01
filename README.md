@@ -24,7 +24,10 @@ It supports two roles:
 ├─ .venv/ # local virtual environment
 ├─ pycache/
 ├─ localhost _ 127.0.0.1 _ aib _ reports _ php.../ # saved HTML assets (optional)
-├─ static/ # static files (css/js/images)
+├─ static/ # static files (css/images)
+| ├─ login.css
+│ ├─ style.css
+│ └─ image/ # logo and icon image 
 ├─ templates/ # Jinja2 templates: login, admin, viewer
 │ ├─ login.html
 │ ├─ AdReportTable.html
