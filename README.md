@@ -21,21 +21,17 @@ It supports two roles:
 
 ## 🧹 Project Structure
 ```
-├─ .venv/ # local virtual environment
-├─ pycache/
-├─ localhost _ 127.0.0.1 _ aib _ reports _ php.../ # saved HTML assets (optional)
-├─ static/ # static files (css/images)
-| ├─ login.css
-│ ├─ style.css
-│ └─ image/ # logo and icon image 
 ├─ templates/ # Jinja2 templates: login, admin, viewer
 │ ├─ login.html
 │ ├─ AdReportTable.html
 │ └─ VwReportTable.html
+├─ static/ # static files (css/images)
+| ├─ login.css
+│ ├─ style.css
+│ └─ image/ # logo and icon image 
 ├─ app.py # Flask routes & logic
-├─ bankdata (3).sql # sample schema/data
 ├─ db_config.py # MySQL connection helper
-├─ localhost _ 127.0.0.1 _ aib _ reports _ php... .html # saved HTML page (optional)
+├─ bankdata (3).sql # sample schema/data
 └─ requirements.txt
 ```
 
