@@ -20,6 +20,7 @@ It supports two roles:
 ---
 
 ## 🧹 Project Structure
+```
 ├─ .venv/ # local virtual environment
 ├─ pycache/
 ├─ localhost _ 127.0.0.1 _ aib _ reports _ php.../ # saved HTML assets (optional)
@@ -33,7 +34,7 @@ It supports two roles:
 ├─ db_config.py # MySQL connection helper
 ├─ localhost _ 127.0.0.1 _ aib _ reports _ php... .html # saved HTML page (optional)
 └─ requirements.txt
-
+```
 
 ---
 
@@ -41,15 +42,15 @@ It supports two roles:
 1) **Install dependencies**
 ```bash
 pip install -r requirements.txt
+```
 
 2) Configure database
-
 Update db_config.py with your MySQL host, user, password, and database.
 
 3)Start the app
-
+```bash
 python app.py
-
+```
 Open: http://127.0.0.1:5000/login
 
 ---
